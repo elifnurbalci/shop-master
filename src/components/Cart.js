@@ -33,20 +33,16 @@ const Cart = () => {
     <div>
       {
         cart.length === 0 ?
-          <div style={{ position: "sticky", float: "right", width: "250px" }}>
-            <Card>
+          <div style={{ position: "fixed", top:"10", right:"0", float: "right", width: "250px"}}>
+            <Card style={{boxShadow: "1px 1px 1px teal"}}>
               <Card.Body>
                 <Card.Title>CART</Card.Title>
                 <Card.Subtitle className="mb-2 text-muted">items in cart : {cart.length}</Card.Subtitle>
-                <hr />
-                <Card.Text>
-                  EMPTY CART
-                </Card.Text>
               </Card.Body>
             </Card>
           </div> :
-          <div style={{ position: "sticky", float: "right", width: "250px" }}>
-            <Card>
+          <div style={{ position: "fixed", top:"10", right:"0", float: "right", width: "250px" }}>
+            <Card style={{backgroundColor:"#f5f8ff", boxShadow: "1px 1px 1px teal"}} >
               <Card.Body>
                 <Card.Title>CART</Card.Title>
                 <Card.Subtitle className="mb-2 text-muted">items in cart : {cart.length}</Card.Subtitle>
