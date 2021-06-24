@@ -7,7 +7,7 @@ import { CardColumns } from "react-bootstrap";
 const Product = (props) => {
   const [cart, setCart] = useContext(CartContext);
   const addToCart = () => {
-    const product = { productName: props.productName, price: props.price };
+    const product = { productName: props.productName, price: props.price, productId: props.productId };
     setCart((currentState) => [...currentState, product]);
   };
   return (
