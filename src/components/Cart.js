@@ -29,20 +29,58 @@ const Cart = () => {
     setChecked(!checked);
   }
 
+
+  //For this week only Apples are at 10% off per bag purchased,
+  const apple = cart.map(product => product.productId);
+  const filteredApple = apple.filter(id => id === 1);
+  const numberApple = filteredApple.length;
+  const discountedApple = numberApple * 0.1;
+
+
+  //For every two tins of soup that are purchased a bread can also be purchased at 50% off
+  const soup = [...apple];
+  const bread = [...apple];
+  const filteredSoup = soup.filter(id => id === 4);
+  const filteredBread = bread.filter(id => id === 2);
+  const numberSoup = filteredSoup.length;
+  const numberBread = filteredBread.length;
+  let dSoup, discountedBread, info;
+  dSoup = Math.floor(numberSoup / 2); 
+
+  if ((dSoup === 1 && numberBread >= 1) || (dSoup > 1 && numberBread >= dSoup) ) {
+    discountedBread = dSoup * 0.4;
+  } else if (dSoup < 1 && numberBread >= 0) {
+    discountedBread = 0;
+  } else if (dSoup > 1 && numberBread < dSoup) {
+    discountedBread = numberBread * 0.4;
+  } 
+  else {
+    discountedBread = 0;
+  }
+
+
+  //(No offers available)
+  const discount = (discountedApple + discountedBread).toFixed(2);
+  if (discount != 0) {
+    info = `Discount: £ ${discount}`;
+  } else {
+    info = "No offers available";
+  };
+
   return (
     <div>
       {
         cart.length === 0 ?
-          <div style={{ position: "fixed", top:"10", right:"0", float: "right", width: "250px"}}>
-            <Card style={{boxShadow: "1px 1px 1px teal"}}>
+          <div style={{ position: "fixed", top: "10", right: "0", float: "right", width: "250px" }}>
+            <Card style={{ boxShadow: "1px 1px 1px teal" }}>
               <Card.Body>
                 <Card.Title>CART</Card.Title>
                 <Card.Subtitle className="mb-2 text-muted">items in cart : {cart.length}</Card.Subtitle>
               </Card.Body>
             </Card>
           </div> :
-          <div style={{ position: "fixed", top:"10", right:"0", float: "right", width: "250px" }}>
-            <Card style={{backgroundColor:"#f5f8ff", boxShadow: "1px 1px 1px teal"}} >
+          <div style={{ position: "fixed", top: "10", right: "0", float: "right", width: "250px" }}>
+            <Card style={{ backgroundColor: "#f5f8ff", boxShadow: "1px 1px 1px teal" }} >
               <Card.Body>
                 <Card.Title>CART</Card.Title>
                 <Card.Subtitle className="mb-2 text-muted">items in cart : {cart.length}</Card.Subtitle>
@@ -55,10 +93,12 @@ const Cart = () => {
                   <hr />
                   Subtotal price : £ {subtotalPrice.toFixed(2)}
                   <hr />
+                  {info}
+                  <hr />
                   <input onChange={handleClick} type="checkbox" checked={checked} name="redeem" />
                   <label for="redeem">-£0.50 redeem code</label>
                   <hr />
-                  Total price : £ {totalPrice.toFixed(2)}
+                  Total price : £ {(totalPrice - discountedApple - discountedBread).toFixed(2)}
                 </Card.Text>
                 <Button variant="warning" onClick={reset} >
                   CLEAR
