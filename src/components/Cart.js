@@ -30,22 +30,27 @@ const Cart = () => {
   }
 
 
+
   //For this week only Apples are at 10% off per bag purchased,
-  const apple = cart.map(product => product.productId);
-  const filteredApple = apple.filter(id => id === 1);
+  const dProduct = cart.map(product => product.productName);
+  console.log({dProduct});
+  const filteredApple = dProduct.filter(id => id === "Apples");
   const numberApple = filteredApple.length;
   const discountedApple = numberApple * 0.1;
 
+  console.log({filteredApple});
+
 
   //For every two tins of soup that are purchased a bread can also be purchased at 50% off
-  const soup = [...apple];
-  const bread = [...apple];
-  const filteredSoup = soup.filter(id => id === 4);
-  const filteredBread = bread.filter(id => id === 2);
+
+  const filteredSoup = dProduct.filter(id => id === "Soup");
+  const filteredBread = dProduct.filter(id => id === "Bread");
   const numberSoup = filteredSoup.length;
   const numberBread = filteredBread.length;
   let dSoup, discountedBread, info;
   dSoup = Math.floor(numberSoup / 2); 
+
+
 
   if ((dSoup === 1 && numberBread >= 1) || (dSoup > 1 && numberBread >= dSoup) ) {
     discountedBread = dSoup * 0.4;
@@ -58,8 +63,6 @@ const Cart = () => {
     discountedBread = 0;
   }
 
-
-  //(No offers available)
   const discount = (discountedApple + discountedBread).toFixed(2);
   if (discount != 0) {
     info = `Discount: £ ${discount}`;
@@ -98,7 +101,7 @@ const Cart = () => {
                   <input onChange={handleClick} type="checkbox" checked={checked} name="redeem" />
                   <label for="redeem">-£0.50 redeem code</label>
                   <hr />
-                  Total price : £ {(totalPrice - discountedApple - discountedBread).toFixed(2)}
+                  Total price : £ {(totalPrice - discount).toFixed(2)}
                 </Card.Text>
                 <Button variant="warning" onClick={reset} >
                   CLEAR
