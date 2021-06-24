@@ -32,9 +32,9 @@ const Cart = () => {
 
 
   //For this week only Apples are at 10% off per bag purchased,
-  const dProduct = cart.map(product => product.productName);
+  const dProduct = cart.map(product => product.productId);
   console.log({dProduct});
-  const filteredApple = dProduct.filter(id => id === "Apples");
+  const filteredApple = dProduct.filter(id => id === 1);
   const numberApple = filteredApple.length;
   const discountedApple = numberApple * 0.1;
 
@@ -43,8 +43,8 @@ const Cart = () => {
 
   //For every two tins of soup that are purchased a bread can also be purchased at 50% off
 
-  const filteredSoup = dProduct.filter(id => id === "Soup");
-  const filteredBread = dProduct.filter(id => id === "Bread");
+  const filteredSoup = dProduct.filter(id => id === 4);
+  const filteredBread = dProduct.filter(id => id === 2);
   const numberSoup = filteredSoup.length;
   const numberBread = filteredBread.length;
   let dSoup, discountedBread, info;
