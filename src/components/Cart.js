@@ -67,7 +67,7 @@ const Cart = () => {
   if (discount != 0) {
     info = `Discount: £ ${discount}`;
   } else {
-    info = "No offers available";
+    info = "No offers available---";
   };
 
   return (
